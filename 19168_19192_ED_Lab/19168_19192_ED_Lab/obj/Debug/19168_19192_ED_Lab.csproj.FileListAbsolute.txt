@@ -1,0 +1,10 @@
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\bin\Debug\19168_19192_ED_Lab.exe.config
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\bin\Debug\19168_19192_ED_Lab.exe
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\bin\Debug\19168_19192_ED_Lab.pdb
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.csprojAssemblyReference.cache
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\_19168_19192_ED_Lab.Form1.resources
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\_19168_19192_ED_Lab.Properties.Resources.resources
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.csproj.GenerateResource.cache
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.csproj.CoreCompileInputs.cache
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.exe
+C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.pdb
