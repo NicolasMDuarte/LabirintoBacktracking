@@ -46,6 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Labirinto.cs" />
+    <Compile Include="Classes\Posicao.cs" />
+    <Compile Include="Classes\Solucionadora.cs" />
+    <Compile Include="Estruturas\FilaLista.cs" />
+    <Compile Include="Estruturas\FilaVaziaException.cs" />
+    <Compile Include="Estruturas\FilaVetor.cs" />
+    <Compile Include="Estruturas\IQueue.cs" />
+    <Compile Include="Estruturas\ListaSimples.cs" />
+    <Compile Include="Estruturas\NoLista.cs" />
+    <Compile Include="Estruturas\FilaCheiaException.cs" />
+    <Compile Include="Estruturas\PilhaCheiaException.cs" />
+    <Compile Include="Estruturas\PilhaLista.cs" />
+    <Compile Include="Estruturas\PilhaLista1.cs" />
+    <Compile Include="Estruturas\PilhaVaziaException.cs" />
+    <Compile Include="Estruturas\PilhaVetor.cs" />
+    <Compile Include="Estruturas\Stack.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
