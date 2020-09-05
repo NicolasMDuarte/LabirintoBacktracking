@@ -50,7 +50,8 @@ namespace _19168_19192_ED_Lab
                     {
                         matriz[linhaAtual, i] = linha[i]; //Adiciona a linha na matriz
                         dgvLab[i, linhaAtual].Value = linha[i]; //Adiciona a linha no dgv
-                        dgvLab.Columns[i].Width = 18; //Define a largura da coluna como 18
+                        dgvLab.Columns[i].Width = 27; //Define a largura da coluna como 18
+                        dgvLab.Columns[i].DefaultCellStyle.Font = new Font("Arial", 15, FontStyle.Regular);
                     }
                 }
                 
@@ -60,9 +61,10 @@ namespace _19168_19192_ED_Lab
 
         private void btnEncontrar_Click(object sender, EventArgs e) //Apertou para encontrar caminho
         {
-            Solucionadora soluc = new Solucionadora(labirinto, dgvLab, dgvCaminhos);
+            Solucionadora soluc = new Solucionadora(labirinto);
 
-            soluc.AcharCaminhos(); //Acha os caminhos
+            soluc.AcharCaminhos(ref dgvLab); //Acha os caminhos
+            soluc.MostrarCaminhos(ref dgvCaminhos); //Exibe os caminhos
         }
     }
 }

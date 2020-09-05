@@ -6,18 +6,27 @@ using System.Threading.Tasks;
 
 namespace _19168_19192_ED_Lab.Classes
 {
-    class Posicao : IComparable<Posicao>
+    class Posicao : IComparable<Posicao>, ICloneable
     {
-        int[] coordenadas;
+        private int[] coordenadas;
+        private int ondeParou;
 
         public Posicao()
         {
-            coordenadas = new int[2];
+            ondeParou = -1;
+            coordenadas = new int[2]; //vetor de 2 posições
         }
 
         public Posicao(int linha, int coluna)
         {
-            coordenadas = new int[2] { linha, coluna };
+            ondeParou = -1;
+            coordenadas = new int[2] { linha, coluna }; //atribui a linha e a coluna à posição
+        }
+
+        public Posicao(int linha, int coluna, int ondeParou)
+        {
+            this.ondeParou = ondeParou;
+            coordenadas = new int[2] { linha, coluna }; //atribui a linha e a coluna à posição
         }
 
         public int[] Coordenadas { get => coordenadas; set => coordenadas = value; }
@@ -31,8 +40,14 @@ namespace _19168_19192_ED_Lab.Classes
             get => coordenadas[1];
             set => coordenadas[1] = value;
         }
+        public int OndeParou { get => ondeParou; set => ondeParou = value; }
 
-        public int CompareTo(Posicao pos)
+        public object Clone()
+        {
+            return new Posicao(this.Linha, this.Coluna, this.ondeParou);
+        }
+
+        public int CompareTo(Posicao pos) //exigência na solucionadora
         {
             if (this.coordenadas[0] + this.coordenadas[1] == pos.coordenadas[0] + pos.coordenadas[1])
                 return 0;
