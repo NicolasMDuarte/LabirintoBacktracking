@@ -21,7 +21,7 @@ namespace _19168_19192_ED_Lab
             InitializeComponent();
         }
 
-        private void btnAbrir_Click(object sender, EventArgs e)
+        private void btnAbrir_Click(object sender, EventArgs e) //Abriu o labirinto
         {
             string arquivo;
             string linha;
@@ -30,39 +30,39 @@ namespace _19168_19192_ED_Lab
             int lis;
             char[,] matriz;
 
-            if(dlgAbrir.ShowDialog() == DialogResult.OK)
+            if(dlgAbrir.ShowDialog() == DialogResult.OK) //Selecionou um arquivo
             {
-                dgvLab.Columns.Clear();
+                dgvLab.Columns.Clear(); //Limpa colunas
                 arquivo = dlgAbrir.FileName;
                 StreamReader leitor = new StreamReader(arquivo);
                 cols = int.Parse(leitor.ReadLine());
                 lis = int.Parse(leitor.ReadLine());
-                dgvLab.ColumnCount = cols;
+                dgvLab.ColumnCount = cols; //Adiciona as colunas
 
-                matriz = new char[lis, cols];
+                matriz = new char[lis, cols]; //Cria uma matriz
                 while(!leitor.EndOfStream)
                 {
                     linhaAtual++;
                     linha = leitor.ReadLine();
 
-                    dgvLab.Rows.Add(linha);
+                    dgvLab.Rows.Add(linha); //Adiciona a linha no dgv
                     for(int i = 0; i < cols; i++)
                     {
-                        matriz[linhaAtual, i] = linha[i];
-                        dgvLab[i, linhaAtual].Value = linha[i];
-                        dgvLab.Columns[i].Width = 18;
+                        matriz[linhaAtual, i] = linha[i]; //Adiciona a linha na matriz
+                        dgvLab[i, linhaAtual].Value = linha[i]; //Adiciona a linha no dgv
+                        dgvLab.Columns[i].Width = 18; //Define a largura da coluna como 18
                     }
                 }
                 
-                labirinto = new Labirinto(matriz, lis, cols);
+                labirinto = new Labirinto(matriz, lis, cols); //Cria um novo Labirinto
             }
         }
 
-        private void btnEncontrar_Click(object sender, EventArgs e)
+        private void btnEncontrar_Click(object sender, EventArgs e) //Apertou para encontrar caminho
         {
             Solucionadora soluc = new Solucionadora(labirinto, dgvLab, dgvCaminhos);
 
-            soluc.AcharCaminhos();
+            soluc.AcharCaminhos(); //Acha os caminhos
         }
     }
 }
