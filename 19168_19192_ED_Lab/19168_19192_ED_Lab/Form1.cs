@@ -54,7 +54,8 @@ namespace _19168_19192_ED_Lab
                         dgvLab.Columns[i].DefaultCellStyle.Font = new Font("Arial", 15, FontStyle.Regular);
                     }
                 }
-                
+
+                dgvLab[0, 0].Selected = false;
                 labirinto = new Labirinto(matriz, lis, cols); //Cria um novo Labirinto
             }
         }

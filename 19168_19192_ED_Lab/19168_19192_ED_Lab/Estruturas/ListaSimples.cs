@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace apBalanceamento
 {
-  class ListaSimples<Dado> where Dado : IComparable<Dado>
+  class ListaSimples<Dado> : ICloneable where Dado : IComparable<Dado>
   {
     NoLista<Dado> primeiro, ultimo, atual, anterior;
     int quantosNos;
@@ -406,6 +406,18 @@ namespace apBalanceamento
       }
     }
 
+        public object Clone()
+        {
+            var ret = new ListaSimples<Dado>();
 
-  }
+            NoLista<Dado> agora = this.primeiro;
+            while (agora != null)
+            {
+                ret.InserirAposFim(agora);
+                agora = this.primeiro.Prox;
+            }
+
+            return ret;
+        }
+    }
 }
