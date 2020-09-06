@@ -20,8 +20,9 @@ namespace _19168_19192_ED_Lab.Classes
         private char vazio = ' ';
         private char jaPassou = 'O';
         private char saida = 'S';
+        private char inicio = 'I';
         bool desempilhou = false;
-        bool primeiraVez = true;
+        bool primeiro = true;
 
         public Solucionadora(Labirinto labirinto) //construtor com o labirinto e ambos os dgvs
         {
@@ -51,23 +52,26 @@ namespace _19168_19192_ED_Lab.Classes
         public void AcharCaminhos(ref DataGridView dgvLab) //encontra os caminhos
         {
             Posicao posAtual = new Posicao(1, 1); //nova posição no início do labirinto
-            bool temCaminho;
+            Posicao proxPosicao = null;
+
+            bool temCaminho = false;
             bool achouSaida = false;
 
+            try
+            {
+                posAtual = (Posicao) pilha.OTopo().Clone();
+            }
+            catch (Exception)
+            { }
             while (true) //loop eterno
             {
-                try
-                {
-                    posAtual = (Posicao)pilha.OTopo().Clone();
-                }
-                catch (Exception)
-                {}
+                proxPosicao = (Posicao) posAtual.Clone();
 
 
                 if (!desempilhou)
-                    temCaminho = TemCaminho(ref posAtual); //verifica se tem caminho
+                    temCaminho = TemCaminho(ref posAtual, ref proxPosicao); //verifica se tem caminho
                 else
-                    temCaminho = TemCaminhoDesempilhado(ref posAtual);
+                    temCaminho = TemCaminhoDesempilhado(ref posAtual, ref proxPosicao);
 
                 if (labirinto.Matriz[posAtual.Linha, posAtual.Coluna] == saida)
                 {
@@ -78,36 +82,11 @@ namespace _19168_19192_ED_Lab.Classes
 
                 if (temCaminho) //se tem, avança, empilhando, e pinta
                 {
-                    dgvLab[posAtual.Coluna, posAtual.Linha].Value = jaPassou;
-                    this.labirinto.Matriz[posAtual.Linha, posAtual.Coluna] = jaPassou;
-
                     pilha.Empilhar(posAtual);
-                    desempilhou = false;
-
-                    Pintar(ref dgvLab, posAtual.Linha, posAtual.Coluna);
                 }
                 else //se não tem, garante o vazio na posição atual e volta
                 {
-                    dgvLab[posAtual.Coluna, posAtual.Linha].Value = vazio;
-                    this.labirinto.Matriz[posAtual.Linha, posAtual.Coluna] = vazio;
-
-                    try
-                    {
-                        pilha.Desempilhar();
-                    }
-                    catch (Exception)
-                    {
-                        break;
-                    }
-
-                    desempilhou = true;
-
-                    try
-                    {
-                        Pintar(ref dgvLab, pilha.OTopo().Linha, pilha.OTopo().Coluna);
-                    }
-                    catch (Exception)
-                    {}
+                    
                 }
 
                 //CODIGO QUE PARE O LOOP QUANDO TODOS OS CAMINHOS FOREM ENCONTRADOS
@@ -140,12 +119,12 @@ namespace _19168_19192_ED_Lab.Classes
         private void Pintar(ref DataGridView dgvLab, int lin, int col) //NÃO FUNCIONA
         {
             dgvLab[col, lin].Selected = true;
-            System.Threading.Thread.Sleep(200); //espera 1 segundo
+            System.Threading.Thread.Sleep(1000); //espera 1 segundo
             Application.DoEvents();
             dgvLab[col, lin].Selected = false;
         }
 
-        private bool TemCaminho(ref Posicao posAtual)
+        private bool TemCaminho(ref Posicao posAtual, ref Posicao proxPosicao)
         {
             //CODIGO PARA RETORNAR ALGO QUE PARE O LOOP QUANDO TODOS OS CAMINHOS FOREM ENCONTRADOS
 
@@ -154,100 +133,68 @@ namespace _19168_19192_ED_Lab.Classes
             if (this.labirinto.Matriz[posAtual.Linha - 1, posAtual.Coluna] == vazio || this.labirinto.Matriz[posAtual.Linha - 1, posAtual.Coluna] == saida)
             {
                 posAtual.OndeParou = 0;
-                if (primeiraVez)
-                {
-                    this.pilha.Empilhar((Posicao) posAtual.Clone());
-                    primeiraVez = false;
-                }
-                posAtual.Linha -= 1;
+
+                proxPosicao.Linha -= 1;
             }
             else
             // Nordeste
             if (this.labirinto.Matriz[posAtual.Linha - 1, posAtual.Coluna + 1] == vazio || this.labirinto.Matriz[posAtual.Linha - 1, posAtual.Coluna + 1] == saida)
             {
                 posAtual.OndeParou = 1;
-                if (primeiraVez)
-                {
-                    this.pilha.Empilhar((Posicao) posAtual.Clone());
-                    primeiraVez = false;
-                }
-                posAtual.Linha -= 1;
-                posAtual.Coluna += 1;
+                
+                proxPosicao.Linha -= 1;
+                proxPosicao.Coluna += 1;
             }
             else
             // Leste
             if (this.labirinto.Matriz[posAtual.Linha, posAtual.Coluna + 1] == vazio || this.labirinto.Matriz[posAtual.Linha, posAtual.Coluna + 1] == saida)
             {
                 posAtual.OndeParou = 2;
-                if (primeiraVez)
-                {
-                    this.pilha.Empilhar((Posicao) posAtual.Clone());
-                    primeiraVez = false;
-                }
-                posAtual.Coluna += 1;
+                
+                proxPosicao.Coluna += 1;
             }
             else
             // Sudeste
             if (this.labirinto.Matriz[posAtual.Linha + 1, posAtual.Coluna + 1] == vazio || this.labirinto.Matriz[posAtual.Linha + 1, posAtual.Coluna + 1] == saida)
             {
                 posAtual.OndeParou = 3;
-                if (primeiraVez)
-                {
-                    this.pilha.Empilhar((Posicao) posAtual.Clone());
-                    primeiraVez = false;
-                }
-                posAtual.Linha += 1;
-                posAtual.Coluna += 1;
+                
+                proxPosicao.Linha += 1;
+                proxPosicao.Coluna += 1;
             }
             else
             // Sul
             if (this.labirinto.Matriz[posAtual.Linha + 1, posAtual.Coluna] == vazio || this.labirinto.Matriz[posAtual.Linha + 1, posAtual.Coluna] == saida)
             {
                 posAtual.OndeParou = 4;
-                if (primeiraVez)
-                {
-                    this.pilha.Empilhar((Posicao) posAtual.Clone());
-                    primeiraVez = false;
-                }
-                posAtual.Linha += 1;
+                
+                proxPosicao.Linha += 1;
             }
             else
             // Sudoeste
             if (this.labirinto.Matriz[posAtual.Linha + 1, posAtual.Coluna - 1] == vazio || this.labirinto.Matriz[posAtual.Linha + 1, posAtual.Coluna - 1] == saida)
             {
                 posAtual.OndeParou = 5;
-                if (primeiraVez)
-                {
-                    this.pilha.Empilhar((Posicao) posAtual.Clone());
-                    primeiraVez = false;
-                }
-                posAtual.Linha += 1;
-                posAtual.Coluna -= 1;
+                
+                proxPosicao.Linha += 1;
+                proxPosicao.Coluna -= 1;
             }
             else
             // Oeste
             if (this.labirinto.Matriz[posAtual.Linha, posAtual.Coluna - 1] == vazio || this.labirinto.Matriz[posAtual.Linha, posAtual.Coluna - 1] == saida)
             {
                 posAtual.OndeParou = 6;
-                if (primeiraVez)
-                {
-                    this.pilha.Empilhar((Posicao) posAtual.Clone());
-                    primeiraVez = false;
-                }
-                posAtual.Coluna -= 1;
+                
+                proxPosicao.Coluna -= 1;
             }
             else
             // Noroeste
             if (this.labirinto.Matriz[posAtual.Linha - 1, posAtual.Coluna - 1] == vazio || this.labirinto.Matriz[posAtual.Linha - 1, posAtual.Coluna - 1] == saida)
             {
                 posAtual.OndeParou = 7;
-                if (primeiraVez)
-                {
-                    this.pilha.Empilhar((Posicao) posAtual.Clone());
-                    primeiraVez = false;
-                }
-                posAtual.Linha -= 1;
-                posAtual.Coluna -= 1;
+                
+                proxPosicao.Linha -= 1;
+                proxPosicao.Coluna -= 1;
             }
             else
             {
@@ -257,7 +204,7 @@ namespace _19168_19192_ED_Lab.Classes
             return true;
         }
 
-        private bool TemCaminhoDesempilhado(ref Posicao posAtual)
+        private bool TemCaminhoDesempilhado(ref Posicao posAtual, ref Posicao proxPosicao) //RESOLVER APÓS O PRIMEIRO
         {
             //CODIGO PARA RETORNAR ALGO QUE PARE O LOOP QUANDO TODOS OS CAMINHOS FOREM ENCONTRADOS
 
@@ -268,12 +215,8 @@ namespace _19168_19192_ED_Lab.Classes
                 if (posAtual.OndeParou < 0)
                 {
                     posAtual.OndeParou = 0;
-                    if (primeiraVez)
-                    {
-                        this.pilha.Empilhar((Posicao) posAtual.Clone());
-                        primeiraVez = false;
-                    }
-                    posAtual.Linha -= 1;
+
+                    proxPosicao.Linha -= 1;
                     return true;
                 }
             }
@@ -283,13 +226,9 @@ namespace _19168_19192_ED_Lab.Classes
                 if (posAtual.OndeParou < 1)
                 {
                     posAtual.OndeParou = 1;
-                    if (primeiraVez)
-                    {
-                        this.pilha.Empilhar((Posicao) posAtual.Clone());
-                        primeiraVez = false;
-                    }
-                    posAtual.Linha -= 1;
-                    posAtual.Coluna += 1;
+
+                    proxPosicao.Linha -= 1;
+                    proxPosicao.Coluna += 1;
                     return true;
                 }
             }
@@ -299,12 +238,8 @@ namespace _19168_19192_ED_Lab.Classes
                 if (posAtual.OndeParou < 2)
                 {
                     posAtual.OndeParou = 2;
-                    if (primeiraVez)
-                    {
-                        this.pilha.Empilhar((Posicao) posAtual.Clone());
-                        primeiraVez = false;
-                    }
-                    posAtual.Coluna += 1;
+
+                    proxPosicao.Coluna += 1;
                     return true;
                 }
             }
@@ -314,13 +249,9 @@ namespace _19168_19192_ED_Lab.Classes
                 if (posAtual.OndeParou < 3)
                 {
                     posAtual.OndeParou = 3;
-                    if (primeiraVez)
-                    {
-                        this.pilha.Empilhar((Posicao) posAtual.Clone());
-                        primeiraVez = false;
-                    }
-                    posAtual.Linha += 1;
-                    posAtual.Coluna += 1;
+
+                    proxPosicao.Linha += 1;
+                    proxPosicao.Coluna += 1;
                     return true;
                 }
             }
@@ -330,12 +261,8 @@ namespace _19168_19192_ED_Lab.Classes
                 if (posAtual.OndeParou < 4)
                 {
                     posAtual.OndeParou = 4;
-                    if (primeiraVez)
-                    {
-                        this.pilha.Empilhar((Posicao) posAtual.Clone());
-                        primeiraVez = false;
-                    }
-                    posAtual.Linha += 1;
+
+                    proxPosicao.Linha += 1;
                     return true;
                 }
             }
@@ -345,13 +272,9 @@ namespace _19168_19192_ED_Lab.Classes
                 if (posAtual.OndeParou < 5)
                 {
                     posAtual.OndeParou = 5;
-                    if (primeiraVez)
-                    {
-                        this.pilha.Empilhar((Posicao) posAtual.Clone());
-                        primeiraVez = false;
-                    }
-                    posAtual.Linha += 1;
-                    posAtual.Coluna -= 1;
+
+                    proxPosicao.Linha += 1;
+                    proxPosicao.Coluna -= 1;
                     return true;
                 }
             }
@@ -361,12 +284,8 @@ namespace _19168_19192_ED_Lab.Classes
                 if (posAtual.OndeParou < 6)
                 {
                     posAtual.OndeParou = 6;
-                    if (primeiraVez)
-                    {
-                        this.pilha.Empilhar((Posicao) posAtual.Clone());
-                        primeiraVez = false;
-                    }
-                    posAtual.Coluna -= 1;
+
+                    proxPosicao.Coluna -= 1;
                     return true;
                 }
             }
@@ -376,13 +295,9 @@ namespace _19168_19192_ED_Lab.Classes
                 if (posAtual.OndeParou < 7)
                 {
                     posAtual.OndeParou = 7;
-                    if (primeiraVez)
-                    {
-                        this.pilha.Empilhar((Posicao) posAtual.Clone());
-                        primeiraVez = false;
-                    }
-                    posAtual.Linha -= 1;
-                    posAtual.Coluna -= 1;
+                    
+                    proxPosicao.Linha -= 1;
+                    proxPosicao.Coluna -= 1;
                     return true;
                 }
             }
