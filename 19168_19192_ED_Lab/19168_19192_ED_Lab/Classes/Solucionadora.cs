@@ -30,19 +30,32 @@ namespace _19168_19192_ED_Lab.Classes
 
         public void MostrarCaminhos(ref DataGridView dgvCam) //mostra os caminhos no dgvCam
         {
+            int qtdLinhas = 0;
             foreach (string linha in listaCaminhos)
             {
                 string li = linha;
-                int tamanho = li.Length;
                 string passoDoCaminhoAtual;
-                for (int i = 0; i < tamanho; i++)
+                int qtdPassos = 0;
+                dgvCam.Columns.Clear();
+                dgvCam.ColumnCount = 1;
+
+                dgvCam.Rows.Add(linha);
+                for (int i = 0; i < li.Length; i++)
                 {
                     if (li[i] == '|')
                     {
-                        passoDoCaminhoAtual = li.Substring(0, i - 1);
-                        li = li.Substring(i + 1, tamanho);
+                        passoDoCaminhoAtual = li.Substring(0, i);
+                        
+                        li = li.Substring(i+1);
+
+                        dgvCam.ColumnCount += 1;
+                        dgvCam[qtdPassos, qtdLinhas].Value = passoDoCaminhoAtual;
+                        qtdPassos++;
+                        i = 0;
                     }
                 }
+                dgvCam.ColumnCount -= 1;
+                qtdLinhas++;
             }
         }
 
@@ -80,11 +93,11 @@ namespace _19168_19192_ED_Lab.Classes
                         }
                         else
                         {
-                            Pintar(ref dgvLab, posAtual.Linha, posAtual.Coluna);
-                            System.Threading.Thread.Sleep(500);
+                            //Pintar(ref dgvLab, posAtual.Linha, posAtual.Coluna);
+                            //System.Threading.Thread.Sleep(500);
 
                             achouSaida = true;
-                            break;
+                            //break;
                         }
                     }
                     else
@@ -107,17 +120,19 @@ namespace _19168_19192_ED_Lab.Classes
 
                 if (achouSaida)
                 {
-                    /*string ret = "";
+                    string ret = "";
                     int linhaAtual, colunaAtual;
-                    while (!pilha.EstaVazia)
+                    PilhaLista<Posicao> pilhaClonada = pilha.Copia();
+                    while (!pilhaClonada.EstaVazia)
                     {
-                        linhaAtual = pilha.OTopo().Linha;
-                        colunaAtual = pilha.OTopo().Coluna;
+                        linhaAtual = pilhaClonada.OTopo().Linha;
+                        colunaAtual = pilhaClonada.OTopo().Coluna;
 
-                        ret += $"Linha:{linhaAtual}, Coluna: {colunaAtual}|";
+                        ret += $"Linha: {linhaAtual}, Coluna: {colunaAtual}|";
+                        pilhaClonada.Desempilhar();
                     }
-                    ret = ret.Substring(0, ret.Length - 1);
-                    listaCaminhos.Add(ret);*/
+                    
+                    listaCaminhos.Add(ret);
                 }
                 else
                 {

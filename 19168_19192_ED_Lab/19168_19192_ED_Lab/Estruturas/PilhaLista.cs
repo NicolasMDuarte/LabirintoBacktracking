@@ -62,19 +62,22 @@ namespace apBalanceamento
             while (!auxiliar.EstaVazia)
                 this.Empilhar(auxiliar.Desempilhar());
         }
-
-        public new object Clone()
+        public PilhaLista<Dado> Copia()
         {
-            var ret = new PilhaLista<Dado>();
+            var copia = new PilhaLista<Dado>();
+            Dado[] aux = new Dado[this.Tamanho];
 
-            NoLista<Dado> agora = base.Primeiro;
-            while (agora != null)
+            for (int i = 0; !this.EstaVazia; i++)
+                aux[i] = this.Desempilhar();
+
+            for (int i = aux.Length - 1; i >= 0; i--)
             {
-                ret.InserirAposFim(agora);
-                agora = base.Primeiro.Prox;
+                this.Empilhar(aux[i]);
+                copia.Empilhar(aux[i]);
             }
-
-            return ret;
+            base.Inverter();
+            copia.Inverter();
+            return copia;
         }
     }
 }

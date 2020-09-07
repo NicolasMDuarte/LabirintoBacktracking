@@ -8,3 +8,13 @@ C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_L
 C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.csproj.CoreCompileInputs.cache
 C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.exe
 C:\Users\nicol\OneDrive\Documentos\GitHub\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.pdb
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\bin\Debug\19168_19192_ED_Lab.exe.config
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\bin\Debug\19168_19192_ED_Lab.exe
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\bin\Debug\19168_19192_ED_Lab.pdb
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.csprojAssemblyReference.cache
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\_19168_19192_ED_Lab.Form1.resources
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\_19168_19192_ED_Lab.Properties.Resources.resources
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.csproj.GenerateResource.cache
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.csproj.CoreCompileInputs.cache
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.exe
+E:\4ºSemestre\EDII\LabirintoBacktracking\19168_19192_ED_Lab\19168_19192_ED_Lab\obj\Debug\19168_19192_ED_Lab.pdb
