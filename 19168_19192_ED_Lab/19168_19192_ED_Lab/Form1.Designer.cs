@@ -87,10 +87,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Montserrat", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(12, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(281, 58);
+            this.label3.Size = new System.Drawing.Size(243, 55);
             this.label3.TabIndex = 6;
             this.label3.Text = "Pathfinder";
             // 
@@ -106,6 +106,7 @@
             this.dgvCaminhos.ReadOnly = true;
             this.dgvCaminhos.Size = new System.Drawing.Size(370, 328);
             this.dgvCaminhos.TabIndex = 3;
+            this.dgvCaminhos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCaminhos_CellClick);
             // 
             // dgvLab
             // 

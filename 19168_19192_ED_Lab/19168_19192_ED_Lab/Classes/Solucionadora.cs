@@ -64,13 +64,16 @@ namespace _19168_19192_ED_Lab.Classes
             }
         }
 
-        public void AcharCaminhos(ref DataGridView dgvLab) //encontra os caminhos
+        public void AcharCaminhos(ref DataGridView dgvLab, ref List<Posicao[]> caminhos, ref int[] qtdPosicoesEmCadaCaminho) //encontra os caminhos
         {
             Posicao posAtual = new Posicao(1, 1); //nova posição no início do labirinto
-            Posicao proxPosicao = null;
+            Posicao[] vetorPos = new Posicao[labirinto.Matriz.Length];
+            qtdPosicoesEmCadaCaminho = new int[labirinto.Matriz.Length];
+            Posicao proxPosicao =  null;
 
             bool temCaminho;
             bool achouSaida = false;
+            int qtdPosicoes = 0, qtdCaminhos = 0;
 
             Pintar(ref dgvLab, posAtual.Linha, posAtual.Coluna);
 
@@ -134,11 +137,21 @@ namespace _19168_19192_ED_Lab.Classes
                         linhaAtual = pilhaClonada.OTopo().Linha;
                         colunaAtual = pilhaClonada.OTopo().Coluna;
 
+                        Posicao posicaoAtual = new Posicao(linhaAtual, colunaAtual);
+                        vetorPos[qtdPosicoes] = posicaoAtual;
+
                         ret += $"Linha: {linhaAtual}, Coluna: {colunaAtual}|";
                         pilhaClonada.Desempilhar();
+                        qtdPosicoes++;
                     }
-                    
+                    qtdPosicoesEmCadaCaminho[qtdCaminhos] = qtdPosicoes;
+                    caminhos.Add(vetorPos);
+                    qtdPosicoes = 0;
+                    vetorPos = new Posicao[labirinto.Matriz.Length];
+
                     listaCaminhos.Add(ret);
+
+
                     achouSaida = false;
                 }
                 else
@@ -155,6 +168,7 @@ namespace _19168_19192_ED_Lab.Classes
                     break;
 
                 posAtual = (Posicao)pilha.Desempilhar().Clone();
+                qtdCaminhos++;
             }
         }
 
