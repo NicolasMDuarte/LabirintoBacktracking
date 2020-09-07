@@ -31,15 +31,20 @@ namespace _19168_19192_ED_Lab.Classes
         public void MostrarCaminhos(ref DataGridView dgvCam) //mostra os caminhos no dgvCam
         {
             int qtdLinhas = 0;
+            dgvCam.Columns.Clear();
             foreach (string linha in listaCaminhos)
             {
+                if(linha == "Não há caminhos")
+                {
+                    dgvCam.ColumnCount = 1;
+                    dgvCam.Rows.Add("Não há caminhos");
+                    break;
+                }
                 string li = linha;
                 string passoDoCaminhoAtual;
                 int qtdPassos = 0;
-                dgvCam.Columns.Clear();
-                dgvCam.ColumnCount = 1;
 
-                dgvCam.Rows.Add(linha);
+                dgvCam.RowCount += 1;
                 for (int i = 0; i < li.Length; i++)
                 {
                     if (li[i] == '|')
@@ -48,13 +53,13 @@ namespace _19168_19192_ED_Lab.Classes
                         
                         li = li.Substring(i+1);
 
-                        dgvCam.ColumnCount += 1;
+                        if(dgvCam.ColumnCount <= qtdPassos)
+                            dgvCam.ColumnCount += 1;
                         dgvCam[qtdPassos, qtdLinhas].Value = passoDoCaminhoAtual;
                         qtdPassos++;
                         i = 0;
                     }
                 }
-                dgvCam.ColumnCount -= 1;
                 qtdLinhas++;
             }
         }
@@ -93,11 +98,12 @@ namespace _19168_19192_ED_Lab.Classes
                         }
                         else
                         {
-                            //Pintar(ref dgvLab, posAtual.Linha, posAtual.Coluna);
-                            //System.Threading.Thread.Sleep(500);
+                            Pintar(ref dgvLab, posAtual.Linha, posAtual.Coluna);
+                            if (listaCaminhos.Count == 0)
+                                System.Threading.Thread.Sleep(500);
 
                             achouSaida = true;
-                            //break;
+                            break;
                         }
                     }
                     else
@@ -133,6 +139,7 @@ namespace _19168_19192_ED_Lab.Classes
                     }
                     
                     listaCaminhos.Add(ret);
+                    achouSaida = false;
                 }
                 else
                 {
@@ -144,15 +151,8 @@ namespace _19168_19192_ED_Lab.Classes
                         listaCaminhos.Add("Não há caminhos");
                 }
 
-
-                //CODIGO QUE PARE O LOOP QUANDO TODOS OS CAMINHOS FOREM ENCONTRADOS
-                /*
-                 * O CODIGO FUNCIONARÁ TENDO COMO BASE QUE, APÓS O PRIMEIRO CAMINHO TER SIDO ENCONTRADO, 
-                 * VOLTAREMOS, A PARTIR DO FIM, POSIÇÕES, ENCONTRANDO OS CAMINHOS DE TRÁS PARA FRENTE, ATÉ RETORNARMOS 
-                 * AO INÍCIO SEM MAIS NENHUM CAMINHO PARA SER SEGUIDO A PARTIR DELE
-                 */
                 if (pilha.EstaVazia)
-                    break; //Só há um caminho
+                    break;
 
                 posAtual = (Posicao)pilha.Desempilhar().Clone();
             }
@@ -160,13 +160,13 @@ namespace _19168_19192_ED_Lab.Classes
 
         private void Pintar(ref DataGridView dgvLab, int lin, int col)
         {
-            //if (listaCaminhos.Count == 0)
-            //{
+            if (listaCaminhos.Count == 0)
+            {
                 dgvLab[col, lin].Selected = true;
-                System.Threading.Thread.Sleep(500); //espera 1 segundo
+                System.Threading.Thread.Sleep(500);
                 Application.DoEvents();
                 dgvLab[col, lin].Selected = false;
-            //}
+            }
         }
 
         private bool TemCaminho(ref Posicao posAtual, ref Posicao proxPosicao)

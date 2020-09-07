@@ -62,10 +62,17 @@ namespace _19168_19192_ED_Lab
 
         private void btnEncontrar_Click(object sender, EventArgs e) //Apertou para encontrar caminho
         {
-            Solucionadora soluc = new Solucionadora(labirinto);
+            try
+            {
+                Solucionadora soluc = new Solucionadora(labirinto);
 
-            soluc.AcharCaminhos(ref dgvLab); //Acha os caminhos
-            soluc.MostrarCaminhos(ref dgvCaminhos); //Exibe os caminhos
+                soluc.AcharCaminhos(ref dgvLab); //Acha os caminhos
+                soluc.MostrarCaminhos(ref dgvCaminhos); //Exibe os caminhos
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Abra um arquivo primeiro!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

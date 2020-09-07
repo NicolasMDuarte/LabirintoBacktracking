@@ -75,7 +75,7 @@ namespace apBalanceamento
                 this.Empilhar(aux[i]);
                 copia.Empilhar(aux[i]);
             }
-            base.Inverter();
+
             copia.Inverter();
             return copia;
         }
