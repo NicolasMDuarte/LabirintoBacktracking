@@ -17,6 +17,7 @@ namespace _19168_19192_ED_Lab
     {
         private Labirinto labirinto;
         private List<Posicao[]> caminhos;
+        // Necessário para o for posterior do dgvCaminhos_CellClick, evitando erros desnecessários.
         private int[] qtdPosicoesEmCadaCaminho;
 
         public Form1()
@@ -27,8 +28,12 @@ namespace _19168_19192_ED_Lab
 
         private void btnAbrir_Click(object sender, EventArgs e) //Abriu o labirinto
         {
+            // Resetar o dgvCaminhos para não ocorrer confusões 
+            // entre o usuário - Clicando em uma Cell no meio da abertura 
+            // do arquivo ou no meio da ação de encontrar os caminhos
             dgvCaminhos.Columns.Clear();
             dgvCaminhos.Rows.Clear();
+
             string arquivo;
             string linha;
             int linhaAtual = -1;
@@ -38,11 +43,12 @@ namespace _19168_19192_ED_Lab
 
             if(dlgAbrir.ShowDialog() == DialogResult.OK) //Selecionou um arquivo
             {
-                dgvLab.Columns.Clear(); //Limpa colunas
                 arquivo = dlgAbrir.FileName;
                 StreamReader leitor = new StreamReader(arquivo);
                 cols = int.Parse(leitor.ReadLine());
                 lis = int.Parse(leitor.ReadLine());
+
+                dgvLab.Columns.Clear(); //Limpa colunas do dgvLab
                 dgvLab.ColumnCount = cols; //Adiciona as colunas
 
                 matriz = new char[lis, cols]; //Cria uma matriz
@@ -57,15 +63,20 @@ namespace _19168_19192_ED_Lab
                         matriz[linhaAtual, i] = linha[i]; //Adiciona a linha na matriz
                         dgvLab[i, linhaAtual].Value = linha[i]; //Adiciona a linha no dgv
                         dgvLab.Columns[i].Width = 27; //Define a largura da coluna como 27
-                        dgvLab.Columns[i].DefaultCellStyle.Font = new Font("Arial", 15, FontStyle.Regular);
+                        dgvLab.Columns[i].DefaultCellStyle.Font = new Font("Arial", 15, FontStyle.Regular); // Define o estilo de letra das Células do dgvLab
                     }
+
+                    // Automatiza o aumento e a diminuição do tamanho da altura e da largura das células
+                    // de acordo com a quantidade delas e o tamanho do dgv (As colunas apenas quando a quantidade de colunas for
+                    // menor que 13)
                     dgvLab.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
                     if(dgvLab.ColumnCount < 13)
                         dgvLab.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     
                 }
-
+                // Tira o foco padrão do dgv.
                 dgvLab[0, 0].Selected = false;
+
                 labirinto = new Labirinto(matriz, lis, cols); //Cria um novo Labirinto
             }
         }
@@ -89,6 +100,7 @@ namespace _19168_19192_ED_Lab
 
         private void dgvCaminhos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Desabilita o dgvCaminhos para melhorar a interface com o usuário
             dgvCaminhos.Enabled = false;
             Posicao[] caminhoConsultado = caminhos.ElementAt(dgvCaminhos.CurrentRow.Index);
 
@@ -98,6 +110,7 @@ namespace _19168_19192_ED_Lab
             Color corDeLapis = Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
 
             int tamanhoRealDoVetor = qtdPosicoesEmCadaCaminho[caminhos.IndexOf(caminhoConsultado)];
+            // Pintando os passo de cada caminho válido para o labirinto atual..
             for (int i = 0; i < tamanhoRealDoVetor; i++)
             {
                 dgvLab[caminhoConsultado[i].Coluna, caminhoConsultado[i].Linha].Style.BackColor = corDeFundo;
@@ -105,6 +118,8 @@ namespace _19168_19192_ED_Lab
                 System.Threading.Thread.Sleep(50);
                 Application.DoEvents();
             }
+
+            // Abilita o dgvCaminhos de volta
             dgvCaminhos.Enabled = true;
         }
     }

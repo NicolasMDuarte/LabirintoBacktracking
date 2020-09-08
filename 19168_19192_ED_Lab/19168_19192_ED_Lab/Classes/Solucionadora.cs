@@ -28,6 +28,8 @@ namespace _19168_19192_ED_Lab.Classes
             listaCaminhos = new ArrayList();
         }
 
+        // Organiza o dgvCam para mostrar cada passo que o algoritmo deu em forma de String, dividindo 
+        // cada uma das "linhas" de passos que vieram do método AcharCaminhos pela ArrayList "listaCaminhos".
         public void MostrarCaminhos(ref DataGridView dgvCam) //mostra os caminhos no dgvCam
         {
             dgvCam.Enabled = true;
@@ -66,6 +68,7 @@ namespace _19168_19192_ED_Lab.Classes
             }
         }
 
+        // Acha todos os caminhos usando o algoritmo de backtracking de cada labirinto especificado...
         public void AcharCaminhos(ref DataGridView dgvLab, ref List<Posicao[]> caminhos, ref int[] qtdPosicoesEmCadaCaminho) //encontra os caminhos
         {
             Posicao posAtual = new Posicao(1, 1); //nova posição no início do labirinto
@@ -89,13 +92,15 @@ namespace _19168_19192_ED_Lab.Classes
 
                     temCaminho = TemCaminho(ref posAtual, ref proxPosicao); //verifica se tem caminho
 
-
+                    // Sinaliza no labirinto da classe Labirinto e no labirinto visual (dgvLab) para qual lugar prosseguiu
+                    // o cursor depois de usar a Rosa dos Ventos (método TemCaminho()).
                     if (temCaminho)
                     {
                         proxPosicao.OndeParou = -1;
                         pilha.Empilhar(posAtual);
                         posAtual = (Posicao)proxPosicao.Clone();
 
+                        // Verifica-se se o lugar para onde o cursor foi é a saída ou não.
                         if ((char)dgvLab[posAtual.Coluna, posAtual.Linha].Value != SAIDA)
                         {
                             dgvLab[posAtual.Coluna, posAtual.Linha].Value = JA_PASSOU;
@@ -112,6 +117,7 @@ namespace _19168_19192_ED_Lab.Classes
                             break;
                         }
                     }
+                    // Volta a posição anterior - pois não há mais lugares para ir da posição atual, a não ser voltar!
                     else
                     {
                         if (pilha.EstaVazia)
@@ -130,6 +136,8 @@ namespace _19168_19192_ED_Lab.Classes
                     }
                 }
 
+                // Quando a saída, no labirinto: "S", é achada pelo algoritmo e o caminho feito para chegar até a saída 
+                // é adicionado a ArrayList de strings "listaCaminhos", que será usada posteriormente no método "MostrarCaminhos".
                 if (achouSaida)
                 {
                     string ret = "";
@@ -149,12 +157,12 @@ namespace _19168_19192_ED_Lab.Classes
                     }
                     qtdPosicoesEmCadaCaminho[qtdCaminhos] = qtdPosicoes;
                     caminhos.Add(vetorPos);
-                    qtdPosicoes = 0;
-                    vetorPos = new Posicao[labirinto.Matriz.Length];
 
                     listaCaminhos.Add(ret);
 
-
+                    // Reseta-se todas as variáveis usadas para encontrarmos um caminho diferente do já encontrado!
+                    qtdPosicoes = 0;
+                    vetorPos = new Posicao[labirinto.Matriz.Length];
                     achouSaida = false;
                 }
                 else
@@ -175,6 +183,7 @@ namespace _19168_19192_ED_Lab.Classes
             }
         }
 
+        // "Pinta" por onde o cursor passou, seguindo o algoritmo
         private void Pintar(ref DataGridView dgvLab, int lin, int col)
         {
             if (listaCaminhos.Count == 0)
@@ -186,6 +195,7 @@ namespace _19168_19192_ED_Lab.Classes
             }
         }
 
+        // Rosa dos Ventos
         private bool TemCaminho(ref Posicao posAtual, ref Posicao proxPosicao)
         {
             // Norte

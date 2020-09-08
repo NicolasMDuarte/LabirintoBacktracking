@@ -27,16 +27,16 @@ namespace _19168_19192_ED_Lab.Classes
             this.labirinto = (char[,]) labirinto.Clone();
         }
 
+        public char[,] Matriz 
+        { 
+            get => labirinto;
+        }
+
         public Labirinto(Labirinto lab)
         {
             this.labirinto = (char[,])lab.labirinto.Clone();
             this.qtdLinhas = lab.qtdLinhas;
             this.qtdColunas = lab.qtdColunas;
-        }
-
-        public char[,] Matriz 
-        { 
-            get => labirinto;
         }
 
         public object Clone()
