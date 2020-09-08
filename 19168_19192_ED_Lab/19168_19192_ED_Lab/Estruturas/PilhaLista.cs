@@ -62,6 +62,9 @@ namespace apBalanceamento
             while (!auxiliar.EstaVazia)
                 this.Empilhar(auxiliar.Desempilhar());
         }
+
+
+        // Método para criar cópias das pilhas usadas para o funcionamento do backtracking
         public PilhaLista<Dado> Copia()
         {
             var copia = new PilhaLista<Dado>();
@@ -76,6 +79,7 @@ namespace apBalanceamento
                 copia.Empilhar(aux[i]);
             }
 
+            // Inverte pois o algoritmo acima acaba invertendo a pilha, o que não é desejado.
             copia.Inverter();
             return copia;
         }

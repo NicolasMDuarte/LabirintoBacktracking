@@ -30,6 +30,7 @@ namespace _19168_19192_ED_Lab.Classes
 
         public void MostrarCaminhos(ref DataGridView dgvCam) //mostra os caminhos no dgvCam
         {
+            dgvCam.Enabled = true;
             int qtdLinhas = 0;
             dgvCam.Columns.Clear();
             foreach (string linha in listaCaminhos)
@@ -38,6 +39,7 @@ namespace _19168_19192_ED_Lab.Classes
                 {
                     dgvCam.ColumnCount = 1;
                     dgvCam.Rows.Add("Não há caminhos");
+                    dgvCam.Enabled = false;
                     break;
                 }
                 string li = linha;
@@ -69,6 +71,7 @@ namespace _19168_19192_ED_Lab.Classes
             Posicao posAtual = new Posicao(1, 1); //nova posição no início do labirinto
             Posicao[] vetorPos = new Posicao[labirinto.Matriz.Length];
             qtdPosicoesEmCadaCaminho = new int[labirinto.Matriz.Length];
+            caminhos = new List<Posicao[]>();
             Posicao proxPosicao =  null;
 
             bool temCaminho;

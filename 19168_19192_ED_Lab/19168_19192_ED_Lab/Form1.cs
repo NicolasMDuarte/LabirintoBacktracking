@@ -27,6 +27,8 @@ namespace _19168_19192_ED_Lab
 
         private void btnAbrir_Click(object sender, EventArgs e) //Abriu o labirinto
         {
+            dgvCaminhos.Columns.Clear();
+            dgvCaminhos.Rows.Clear();
             string arquivo;
             string linha;
             int linhaAtual = -1;
@@ -58,7 +60,7 @@ namespace _19168_19192_ED_Lab
                         dgvLab.Columns[i].DefaultCellStyle.Font = new Font("Arial", 15, FontStyle.Regular);
                     }
                     dgvLab.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-                    if(dgvLab.ColumnCount < 20)
+                    if(dgvLab.ColumnCount < 13)
                         dgvLab.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     
                 }
@@ -95,7 +97,8 @@ namespace _19168_19192_ED_Lab
             Color corDeFundo = Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
             Color corDeLapis = Color.FromArgb(random.Next(256), random.Next(256), random.Next(256));
 
-            for (int i = 0; i < qtdPosicoesEmCadaCaminho[caminhos.IndexOf(caminhoConsultado)]; i++)
+            int tamanhoRealDoVetor = qtdPosicoesEmCadaCaminho[caminhos.IndexOf(caminhoConsultado)];
+            for (int i = 0; i < tamanhoRealDoVetor; i++)
             {
                 dgvLab[caminhoConsultado[i].Coluna, caminhoConsultado[i].Linha].Style.BackColor = corDeFundo;
                 dgvLab[caminhoConsultado[i].Coluna, caminhoConsultado[i].Linha].Style.ForeColor = corDeLapis;

@@ -30,6 +30,7 @@ namespace _19168_19192_ED_Lab.Classes
         }
 
         public int[] Coordenadas { get => coordenadas; set => coordenadas = value; }
+        public int OndeParou { get => ondeParou; set => ondeParou = value; }
         public int Linha
         {
             get => coordenadas[0];
@@ -40,7 +41,6 @@ namespace _19168_19192_ED_Lab.Classes
             get => coordenadas[1];
             set => coordenadas[1] = value;
         }
-        public int OndeParou { get => ondeParou; set => ondeParou = value; }
 
         public object Clone()
         {
