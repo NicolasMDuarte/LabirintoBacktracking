@@ -65,14 +65,6 @@ namespace _19168_19192_ED_Lab
                         dgvLab.Columns[i].Width = 27; //Define a largura da coluna como 27
                         dgvLab.Columns[i].DefaultCellStyle.Font = new Font("Arial", 15, FontStyle.Regular); // Define o estilo de letra das Células do dgvLab
                     }
-
-                    // Automatiza o aumento e a diminuição do tamanho da altura e da largura das células
-                    // de acordo com a quantidade delas e o tamanho do dgv (As colunas apenas quando a quantidade de colunas for
-                    // menor que 13)
-                    dgvLab.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-                    if(dgvLab.ColumnCount < 13)
-                        dgvLab.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    
                 }
                 // Tira o foco padrão do dgv.
                 dgvLab[0, 0].Selected = false;
