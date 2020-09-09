@@ -73,7 +73,7 @@ namespace _19168_19192_ED_Lab.Classes
         {
             Posicao posAtual = new Posicao(1, 1); //nova posição no início do labirinto
             Posicao[] vetorPos = new Posicao[labirinto.Matriz.Length];
-            qtdPosicoesEmCadaCaminho = new int[labirinto.Matriz.Length];
+            qtdPosicoesEmCadaCaminho = new int[labirinto.Matriz.Length * 10]; //Garante que não há estouro
             caminhos = new List<Posicao[]>();
             Posicao proxPosicao =  null;
 
